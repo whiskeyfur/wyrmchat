@@ -20,7 +20,12 @@ wss.on("connection", function(ws) {
     ws.send(JSON.stringify(new Date()), function() {  })
   }, 1000)
    
-  ws.on('message', function message(data) {
+  ws.on('message', function message(data, isBinary) {
+    wss.clients.forEach(function each(client) {
+      if (client.readyState === WebSocket.OPEN) {
+        client.send(data, { binary: isBinary });
+      }
+    });
   });
 
   ws.on("close", function() {
