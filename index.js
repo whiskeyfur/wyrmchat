@@ -16,10 +16,14 @@ console.log("websocket server created")
 
 wss.on("connection", function(ws) {
   console.log("websocket connection open")
-  
-  ws.on("message", function(data, isBinary) {
+  var id = setInterval(function() {
+    ws.send(JSON.stringify(new Date()), function() {  })
+  }, 1000)
+   
+  ws.on('message', function message(data, request, client) {
+    console.log(`Received message ${data} from user ${client}`);
     wss.clients.forEach(function each(client) {
-      if (client !== ws && client.readyState === WebSocket.OPEN) {
+      if (client.readyState === WebSocket.OPEN) {
         client.send(data, { binary: isBinary });
       }
     });
