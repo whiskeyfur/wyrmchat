@@ -20,13 +20,7 @@ wss.on("connection", function(ws) {
     ws.send(JSON.stringify(new Date()), function() {  })
   }, 1000)
    
-  ws.on('message', function message(data, request, client) {
-    console.log(`Received message ${data} from user ${client}`);
-    wss.clients.forEach(function each(client) {
-      if (client.readyState === WebSocket.OPEN) {
-        client.send(data, { binary: isBinary });
-      }
-    });
+  ws.on('message', function message(data) {
   });
 
   ws.on("close", function() {
