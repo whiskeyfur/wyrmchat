@@ -25,9 +25,7 @@ wss.on("connection", function(ws) {
       console.log(wss.clients);
       wss.clients.forEach(function each(client) {
         try {
-          if (client.readyState === WebSocket.OPEN) {
-            client.send(data, { binary: isBinary });
-          }
+          client.send(data, { binary: isBinary });
         } catch(ex) {
           console.log("inner:" + ex);
         }
