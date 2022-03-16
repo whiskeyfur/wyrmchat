@@ -22,13 +22,18 @@ wss.on("connection", function(ws) {
    
   ws.on('message', function message(data, isBinary) {
     try {
+      console.log(wss.clients);
       wss.clients.forEach(function each(client) {
-       if (client.readyState === WebSocket.OPEN) {
-          client.send(data, { binary: isBinary });
+        try {
+          if (client.readyState === WebSocket.OPEN) {
+            client.send(data, { binary: isBinary });
+          }
+        } catch(ex) {
+          console.log("inner:" + ex);
         }
       });
     } catch(ex) {
-      console.log(JSON.stringify(ex));
+      console.log("outer:" + ex);
     }
   });
 
