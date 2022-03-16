@@ -18,7 +18,7 @@ wss.on("connection", function(ws) {
   console.log("websocket connection open")
   var id = setInterval(function() {
     ws.send(JSON.stringify(new Date()), function() {  })
-  }, 1000)
+  }, 60000)
    
   ws.on('message', function message(data, isBinary) {
     try {
