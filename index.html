@@ -23,6 +23,7 @@
       var ws = new WebSocket(host);
       ws.onmessage = function (event) {
         var li = document.createElement('li');
+	console.log(event);
         li.innerHTML = JSON.parse(event.data);
         document.querySelector('#pings').appendChild(li);
       };
